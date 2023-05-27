@@ -1,0 +1,108 @@
+-- Create Passengers table
+
+CREATE TABLE Passengers (
+
+    passenger_id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    age INT,
+
+    gender VARCHAR(10),
+
+    contact_number VARCHAR(15)
+
+);
+
+-- Create Reservations table
+
+CREATE TABLE Reservations (
+
+    reservation_id INT PRIMARY KEY,
+
+    passenger_id INT,
+
+    bus_name VARCHAR(50),
+
+    seat_number INT,
+
+    reservation_date DATE,
+
+    FOREIGN KEY (passenger_id) REFERENCES Passengers (passenger_id)
+
+);
+
+-- Insert data into Passengers table
+
+INSERT INTO Passengers (passenger_id, name, age, gender, contact_number)
+
+VALUES
+
+    (1, 'John Doe', 25, 'Male', '1234567890'),
+
+    (2, 'Jane Smith', 30, 'Female', '9876543210'),
+
+    (3, 'Michael Johnson', 45, 'Male', '5555555555');
+
+-- Insert data into Reservations table
+
+INSERT INTO Reservations (reservation_id, passenger_id, bus_name, seat_number, reservation_date)
+
+VALUES
+
+    (101, 1, 'Bus A', 10, '2023-05-01'),
+
+    (102, 2, 'Bus B', 5, '2023-05-05'),
+
+    (103, 3, 'Bus C', 8, '2023-05-10');
+
+-- Insert data into Passengers table
+
+INSERT INTO Passengers (passenger_id, name, age, gender, contact_number)
+
+VALUES
+
+    (1, 'John Doe', 25, 'Male', '1234567890'),
+
+    (2, 'Jane Smith', 30, 'Female', '9876543210'),
+
+    (3, 'Michael Johnson', 45, 'Male', '5555555555');
+
+-- Insert data into Reservations table
+
+INSERT INTO Reservations (reservation_id, passenger_id, bus_name, seat_number, reservation_date)
+
+VALUES
+
+    (101, 1, 'Bus A', 10, '2023-05-01'),
+
+    (102, 2, 'Bus B', 5, '2023-05-05'),
+
+    (103, 3, 'Bus C', 8, '2023-05-10');
+
+-- Join operation to display passenger and reservation details
+
+SELECT
+
+    Passengers.name,
+
+    Passengers.age,
+
+    Passengers.gender,
+
+    Passengers.contact_number,
+
+    Reservations.bus_name,
+
+    Reservations.seat_number,
+
+    Reservations.reservation_date
+
+FROM
+
+    Passengers
+
+JOIN
+
+    Reservations ON Passengers.passenger_id = Reservations.passenger_id;
+
