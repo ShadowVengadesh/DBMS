@@ -1,0 +1,91 @@
+CREATE TABLE Patients (
+
+  patient_id INT PRIMARY KEY,
+
+  patient_name VARCHAR(50),
+
+  date_of_birth DATE,
+
+  gender VARCHAR(10),
+
+  address VARCHAR(100),
+
+  contact_number VARCHAR(20),
+
+  email VARCHAR(50)
+
+);
+
+CREATE TABLE Doctors (
+
+  doctor_id INT PRIMARY KEY,
+
+  doctor_name VARCHAR(50),
+
+  specialization VARCHAR(50),
+
+  contact_number VARCHAR(20),
+
+  email VARCHAR(50)
+
+);
+
+CREATE TABLE Appointments (
+
+  appointment_id INT PRIMARY KEY,
+
+  patient_id INT,
+
+  doctor_id INT,
+
+  appointment_date DATE,
+
+  appointment_time TIME,
+
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+
+  FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+
+);
+
+CREATE TABLE Prescriptions (
+
+  prescription_id INT PRIMARY KEY,
+
+  appointment_id INT,
+
+  prescription_details VARCHAR(200),
+
+  FOREIGN KEY (appointment_id) REFERENCES Appointments(appointment_id)
+
+);
+
+CREATE TABLE Payments (
+
+  payment_id INT PRIMARY KEY,
+
+  patient_id INT,
+
+  amount DECIMAL(10, 2),
+
+  payment_date DATE,
+
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id)
+
+);
+
+SELECT * FROM Patients;
+
+SELECT * FROM Doctors WHERE specialization = 'Cardiology';
+
+INSERT INTO Appointments (appointment_id, patient_id, doctor_id, appointment_date, appointment_time)
+
+VALUES (1, 1, 1, '2023-05-27', '10:00:00');
+
+SELECT * FROM Appointments WHERE patient_id = 1;
+
+UPDATE Prescriptions SET prescription_details = 'Take medication XYZ' WHERE appointment_id = 1;
+
+INSERT INTO Payments (payment_id, patient_id, amount, payment_date)
+
+VALUES (1, 1, 100.00, '2023-05-27');
