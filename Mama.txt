@@ -1,0 +1,85 @@
+-- Create EmployeePersonal table
+
+CREATE TABLE EmployeePersonal (
+
+  EmployeeID INT PRIMARY KEY,
+
+  FirstName VARCHAR(50),
+
+  LastName VARCHAR(50),
+
+  Address VARCHAR(100),
+
+  City VARCHAR(50),
+
+  State VARCHAR(50),
+
+  PostalCode VARCHAR(20),
+
+  Country VARCHAR(50),
+
+  Phone VARCHAR(20),
+
+  Email VARCHAR(100)
+
+);
+
+-- Create Salary table
+
+CREATE TABLE Salary (
+
+  EmployeeID INT PRIMARY KEY,
+
+  SalaryAmount DECIMAL(10, 2),
+
+  Incentives DECIMAL(10, 2),
+
+  CONSTRAINT FK_Salary_EmployeeID FOREIGN KEY (EmployeeID) REFERENCES EmployeePersonal(EmployeeID)
+
+);
+
+-- Create Department table
+
+CREATE TABLE Department (
+
+  DepartmentID INT PRIMARY KEY,
+
+  DepartmentName VARCHA
+  -- Create a user-defined function
+
+CREATE FUNCTION UpdateSalaryWithIncentives (@employeeID INT, @incentives DECIMAL(10, 2))
+
+RETURNS DECIMAL(10, 2)
+
+AS
+
+BEGIN
+
+  UPDATE Salary
+
+  SET SalaryAmount = SalaryAmount + @incentives,
+
+      Incentives = @incentives
+
+  WHERE EmployeeID = @employeeID;
+
+  RETURN (SELECT SalaryAmount FROM Salary WHERE EmployeeID = @employeeID);
+
+END;R(50)
+
+);
+-- Minimum salary
+
+SELECT MIN(SalaryAmount) AS MinSalary FROM Salary;
+
+-- Maximum salary
+
+SELECT MAX(SalaryAmount) AS MaxSalary FROM Salary;
+
+-- Total salary
+
+SELECT SUM(SalaryAmount) AS TotalSalary FROM Salary;
+
+-- Average salary
+
+SELECT AVG(SalaryAmount) AS AvgSalary FROM Salary;
