@@ -1,0 +1,55 @@
+-- Trigger for booking cargo
+
+CREATE OR REPLACE TRIGGER trg_booking_cargo
+
+BEFORE INSERT ON Bookings
+
+FOR EACH ROW
+
+DECLARE
+
+  cargo_weight_limit DECIMAL(10,2); -- Example weight limit for cargo
+
+BEGIN
+
+  -- Check if the cargo weight exceeds the limit
+
+  IF :new.cargo_id IS NOT NULL THEN
+
+    SELECT cargo_weight INTO cargo_weight_limit
+
+    FROM Cargo
+
+    WHERE cargo_id = :new.cargo_id;
+
+    IF :new.cargo_weight > cargo_weight_limit THEN
+
+      RAISE_APPLICATION_ERROR(-20001, 'Cargo weight exceeds the limit.');
+
+    END IF;
+
+  END IF;
+
+END;
+
+/
+
+-- Trigger for canceling a booking
+
+CREATE OR REPLACE TRIGGER trg_cancel_booking
+
+BEFORE DELETE ON Bookings
+
+FOR EACH ROW
+
+BEGIN
+
+  -- Perform necessary actions before canceling the booking
+
+  -- For example, updating other related tables or sending notifications
+
+  NULL;
+
+END;
+
+/
