@@ -1,0 +1,98 @@
+CREATE OR REPLACE TRIGGER display_available_items_before_purchase
+
+BEFORE INSERT ON Orders
+
+FOR EACH ROW
+
+DECLARE
+
+    v_product_name VARCHAR(50);
+
+    v_available_quantity NUMBER;
+
+BEGIN
+
+    -- Get the product name
+
+    SELECT name INTO v_product_name FROM Products WHERE product_id = :new.product_id;
+
+    -- Get the available quantity of the product
+
+    SELECT quantity INTO v_available_quantity FROM Products WHERE product_id = :new.product_id;
+
+    -- Display available items
+
+    DBMS_OUTPUT.PUT_LINE('Available items before purchase:');
+
+    DBMS_OUTPUT.PUT_LINE(v_product_name || ': ' || v_available_quantity || ' available');
+
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER display_available_items_after_purchase
+
+AFTER INSERT ON Orders
+
+FOR EACH ROW
+
+DECLARE
+
+    v_product_name VARCHAR(50);
+
+    v_available_quantity NUMBER;
+
+BEGIN
+
+    -- Get the product name
+
+    SELECT name INTO v_product_name FROM Products WHERE product_id = :new.product_id;
+
+    -- Get the available quantity of the product
+
+    SELECT quantity INTO v_available_quantity FROM Products WHERE product_id = :new.product_id;
+
+    -- Display available items
+
+    DBMS_OUTPUT.PUT_LINE('Available items after purchase:');
+
+    DBMS_OUTPUT.PUT_LINE(v_product_name || ': ' || v_available_quantity || ' available');
+
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER display_available_items_after_purchase
+
+AFTER INSERT ON Orders
+
+FOR EACH ROW
+
+DECLARE
+
+    v_product_name VARCHAR(50);
+
+    v_available_quantity NUMBER;
+
+BEGIN
+
+    -- Get the product name
+
+    SELECT name INTO v_product_name FROM Products WHERE product_id = :new.product_id;
+
+    -- Get the available quantity of the product
+
+    SELECT quantity INTO v_available_quantity FROM Products WHERE product_id = :new.product_id;
+
+    -- Display available items
+
+    DBMS_OUTPUT.PUT_LINE('Available items after purchase:');
+
+    DBMS_OUTPUT.PUT_LINE(v_product_name || ': ' || v_available_quantity || ' available');
+
+END;
+
+SET SERVEROUTPUT ON;
+
+
+
