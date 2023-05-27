@@ -1,0 +1,109 @@
+-- Patients table
+
+CREATE TABLE Patients (
+
+  patient_id INT PRIMARY KEY,
+
+  patient_name VARCHAR(100),
+
+  patient_gender VARCHAR(10),
+
+  patient_dob DATE,
+
+  patient_address VARCHAR(100),
+
+  patient_phone VARCHAR(20),
+
+  patient_email VARCHAR(100)
+
+);
+
+-- Doctors table
+
+CREATE TABLE Doctors (
+
+  doctor_id INT PRIMARY KEY,
+
+  doctor_name VARCHAR(100),
+
+  doctor_specialty VARCHAR(50),
+
+  doctor_phone VARCHAR(20),
+
+  doctor_email VARCHAR(100)
+
+);
+
+-- Appointments table
+
+CREATE TABLE Appointments (
+
+  appointment_id INT PRIMARY KEY,
+
+  patient_id INT,
+
+  doctor_id INT,
+
+  appointment_date DATE,
+
+  appointment_time TIME,
+
+  appointment_notes VARCHAR(200),
+
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
+
+  FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id) ON DELETE CASCADE
+
+);
+
+-- MedicalRecords table
+
+CREATE TABLE MedicalRecords (
+
+  record_id INT PRIMARY KEY,
+
+  patient_id INT,
+
+  doctor_id INT,
+
+  record_date DATE,
+
+  record_details VARCHAR(200),
+
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
+
+  FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id) ON DELETE CASCADE
+
+);
+
+-- Invoices table
+
+CREATE TABLE Invoices (
+
+  invoice_id INT PRIMARY KEY,
+
+  patient_id INT,
+
+  invoice_date DATE,
+
+  invoice_amount DECIMAL(10, 2),
+
+  FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE
+
+);
+
+-- Inventory table
+
+CREATE TABLE Inventory (
+
+  item_id INT PRIMARY KEY,
+
+  item_name VARCHAR(100),
+
+  item_description VARCHAR(200),
+
+  item_quantity INT,
+
+  item_price DECIMAL(10, 2)
+
+);
